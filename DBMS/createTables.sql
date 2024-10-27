@@ -6,8 +6,8 @@ create table if not exists buses.drivers (
     id bigint generated always as identity (increment 1 start 1)
                          primary key not null,
     last_name varchar(50) not null,
-    first_name varchar(50) null,
-    middle_name varchar(50) not null,
+    first_name varchar(50) not null,
+    middle_name varchar(50) null,
     date_birth date null,
     drive_license varchar not null,
     drive_license_valid date not null,
@@ -43,7 +43,8 @@ create table if not exists financial.ways (
     way_cost   numeric(18,5) not null,
     date_added timestamp without time zone not null,
     date_modified timestamp without time zone null,
-    date_deleted timestamp without time zone null
+    date_deleted timestamp without time zone null,
+    status integer not null
 );
 
 create table if not exists financial.description_ways (
@@ -57,6 +58,7 @@ create table if not exists financial.description_ways (
     date_added timestamp without time zone not null,
     date_modified timestamp without time zone null,
     date_deleted timestamp without time zone null,
+    status integer not null,
     CONSTRAINT fk_ways
       FOREIGN KEY(way_id)
         REFERENCES financial.ways (id)

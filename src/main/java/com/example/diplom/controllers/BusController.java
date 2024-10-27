@@ -1,7 +1,9 @@
 package com.example.diplom.controllers;
 
 import com.example.diplom.model.dto.request.BusInfoRequest;
+import com.example.diplom.model.dto.request.TechInfoRequest;
 import com.example.diplom.model.dto.response.BusInfoResponse;
+import com.example.diplom.model.dto.response.TechInfoResponse;
 import com.example.diplom.service.BusService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -23,7 +25,7 @@ public class BusController {
     @PostMapping
     @Operation(summary = "Добавить микроавтобус/автобус")
     public BusInfoResponse addBus(@RequestBody BusInfoRequest request) {
-        return busService.createBus(request);
+        return busService.addBus(request);
     }
 
     @GetMapping("/{id}")
@@ -48,5 +50,18 @@ public class BusController {
     @Operation(summary = "Весь список микроавтобусов/автобусов")
     public List<BusInfoResponse> getAllBuses() {
         return busService.getAllBuses();
+    }
+    // Технический контроль состояния автотранспорта
+    // ---------------------------------------------
+    @PostMapping("/{id}")
+    @Operation(summary = "Добавить технический контроль микроавтобуса/автобуса")
+    public TechInfoResponse addTechControlBus(@PathVariable Long id, @RequestBody TechInfoRequest request) {
+        return busService.addTechControlBus(id, request);
+    }
+
+    @GetMapping("/{id}/techcontrol")
+    @Operation(summary = "Посмотреть данные технического контроля на микроавтобус/автобус")
+    public List<TechInfoResponse> getTechControlBus(@PathVariable Long id) {
+        return busService.getTechControlBus(id);
     }
 }

@@ -1,6 +1,6 @@
 -- To create database to use inside Diplom task
 -- Launch at the command line:
--- psql -h macppc.local -U postgres -f createDB.sql
+-- psql -h macppc -U postgres -f createDB.sql
 -- ================================================
 -- after created DB "minibuses" can connnect to the database as user (role) oleg
 --
@@ -12,5 +12,5 @@ create database "minibuses"
 --    LC_COLLATE = 'Russian_Russia.1251'
 --    LC_TYPE = 'UTF-8'
     tablespace = pg_default
-    connection limit = 10
+    connection limit = 50
     is_template = false;
