@@ -1,6 +1,6 @@
 package com.example.diplom.model.dto.response;
 
-import com.example.diplom.model.dto.request.TechInfoRequest;
+import com.example.diplom.model.dto.request.MedicalInfoRequest;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 
-public class TechInfoResponse extends TechInfoRequest {
-    LocalDateTime dateTechControl;
-    LocalDateTime dateNextTechControl;
+public class MedicalInfoResponse extends MedicalInfoRequest {
+    LocalDateTime dateExamination;
 }

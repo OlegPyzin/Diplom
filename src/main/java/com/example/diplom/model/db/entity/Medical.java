@@ -1,6 +1,7 @@
 package com.example.diplom.model.db.entity;
 
 import com.example.diplom.model.enums.MedicalStatus;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -9,7 +10,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -28,6 +28,7 @@ public class Medical {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "driver_id")
+    @JsonBackReference(value = "driver_drivers")
     Driver driver;
 
     @NotEmpty
@@ -35,12 +36,11 @@ public class Medical {
     String whoMadeMedical;
 
     @Column(name = "date_examination")
-    @CreationTimestamp
+    //@CreationTimestamp
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     LocalDateTime dateExamination;
 
-    @NotEmpty
     @Column(name = "status", length = 20)
     @Enumerated(EnumType.STRING)
     MedicalStatus status;

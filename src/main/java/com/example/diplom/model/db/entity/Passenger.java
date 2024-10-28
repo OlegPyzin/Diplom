@@ -68,7 +68,6 @@ public class Passenger {
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     LocalDateTime dateDeleted;
 
-    @NotEmpty
     @Column(name = "status", length = 30)
     @Enumerated(EnumType.STRING)
     PassengerStatus status;

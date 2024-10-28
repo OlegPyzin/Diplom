@@ -85,8 +85,10 @@ public class BusService {
 
                 saved = busRepository.save(bus);
             } else {
-                // for exception
+                // prepare for exception
             }
+        } else {
+            // prepare for exception
         }
         return mapper.convertValue(saved, BusInfoResponse.class);
     }
@@ -102,8 +104,10 @@ public class BusService {
 
                 busRepository.save(bus);
             } else {
-                // for exception
+                // prepare for exception
             }
+        } else {
+            // prepare for exception
         }
     }
 

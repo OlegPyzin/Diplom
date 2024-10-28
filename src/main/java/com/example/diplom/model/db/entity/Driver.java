@@ -1,13 +1,13 @@
 package com.example.diplom.model.db.entity;
 
 import com.example.diplom.model.enums.DriverStatus;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
@@ -63,29 +63,29 @@ public class Driver {
     String telephone;
 
     @Column(name = "date_added")
-    @CreationTimestamp
+    //@CreationTimestamp
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     LocalDateTime dateAdded;
 
     @Column(name = "date_modified")
-    @UpdateTimestamp
+    //@UpdateTimestamp
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     LocalDateTime dateModified;
 
     @Column(name = "date_fired")
-    @UpdateTimestamp
+    //@UpdateTimestamp
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     LocalDateTime dateFired;
 
-    @NotEmpty
     @Column(name = "status", length = 20)
     @Enumerated(EnumType.STRING)
     DriverStatus status;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "driver")
+    @JsonBackReference(value = "driver_drivers")
     List<Medical> medicals;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "driver")

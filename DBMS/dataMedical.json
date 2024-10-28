@@ -1,0 +1,11 @@
+{
+  "whoMadeMedical": "Орлова Валентина Петровна, врач-педиатр",
+  "status": "SUCCESS"
+}
+,
+{
+  "whoMadeMedical": "Орлова Валентина Петровна, врач-педиатр",
+  "status": "FAILED",
+  "descriptionStatus": "Повышенное давление 180/100."
+}
+,

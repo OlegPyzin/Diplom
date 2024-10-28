@@ -1,7 +1,11 @@
 package com.example.diplom.controllers;
 
 import com.example.diplom.model.dto.request.DriverInfoRequest;
+import com.example.diplom.model.dto.request.MedicalInfoRequest;
+import com.example.diplom.model.dto.request.TechInfoRequest;
 import com.example.diplom.model.dto.response.DriverInfoResponse;
+import com.example.diplom.model.dto.response.MedicalInfoResponse;
+import com.example.diplom.model.dto.response.TechInfoResponse;
 import com.example.diplom.service.DriverService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -50,4 +54,19 @@ public class DriverController {
     public List<DriverInfoResponse> getAllDrivers() {
         return driverService.getAllDrivers();
     }
+
+    // Медицинский осмотр водителя перед выходом на линию
+    // --------------------------------------------------
+    @PostMapping("/{id}")
+    @Operation(summary = "Добавить данные о медицинском осмотре водителя.")
+    public MedicalInfoResponse addMedical(@PathVariable Long id, @RequestBody MedicalInfoRequest request) {
+        return driverService.addMedical(id, request);
+    }
+
+    @GetMapping("/{id}/medical")
+    @Operation(summary = "Посмотреть данные медицинского осмотра водителя.")
+    public List<MedicalInfoResponse> getMedical(@PathVariable Long id) {
+        return driverService.getMedical(id);
+    }
+
 }
