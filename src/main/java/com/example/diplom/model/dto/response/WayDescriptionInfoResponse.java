@@ -1,12 +1,10 @@
 package com.example.diplom.model.dto.response;
 
-import com.example.diplom.model.dto.request.WayInfoRequest;
+import com.example.diplom.model.dto.request.WayDescriptionInfoRequest;
 import com.example.diplom.model.enums.WayStatus;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
-
-import java.util.List;
 
 @Setter
 @Getter
@@ -15,8 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 
-public class WayInfoResponse extends WayInfoRequest {
+public class WayDescriptionInfoResponse extends WayDescriptionInfoRequest {
     Long id;
     WayStatus status;
-    List<WayDescriptionInfoResponse> wayDescriptionInfoResponseList;
 }

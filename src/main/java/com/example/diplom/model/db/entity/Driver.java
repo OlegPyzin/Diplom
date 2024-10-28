@@ -89,5 +89,6 @@ public class Driver {
     List<Medical> medicals;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "driver")
+    //@JsonBackReference(value = "driver_drivers")
     List<WorkOnWay> workOnWay;
 }

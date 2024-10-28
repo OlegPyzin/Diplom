@@ -1,6 +1,7 @@
 package com.example.diplom.model.db.entity;
 
 import com.example.diplom.model.enums.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -47,31 +48,29 @@ public class Way {
     BigDecimal cost;
 
     @Column(name = "date_added")
-    @CreationTimestamp
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     LocalDateTime dateAdded;
 
     @Column(name = "date_modified")
-    @UpdateTimestamp
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     LocalDateTime dateModified;
 
     @Column(name = "date_deleted")
-    @UpdateTimestamp
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     LocalDateTime dateDeleted;
 
-    @NotEmpty
     @Column(name = "status", length = 20)
     @Enumerated(EnumType.STRING)
     WayStatus status;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "way")
-    List<DescriptionWay> partsWay;
+    @JsonBackReference(value = "driver_ways")
+    List<DescriptionWay> descriptionWays;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "way")
+    //@JsonBackReference(value = "driver_ways")
     List<WorkOnWay> workOnWay;
 }

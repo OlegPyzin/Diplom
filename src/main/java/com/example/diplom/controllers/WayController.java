@@ -1,6 +1,10 @@
 package com.example.diplom.controllers;
 
+import com.example.diplom.model.dto.request.MedicalInfoRequest;
+import com.example.diplom.model.dto.request.WayDescriptionInfoRequest;
 import com.example.diplom.model.dto.request.WayInfoRequest;
+import com.example.diplom.model.dto.response.MedicalInfoResponse;
+import com.example.diplom.model.dto.response.WayDescriptionInfoResponse;
 import com.example.diplom.model.dto.response.WayInfoResponse;
 import com.example.diplom.service.WayService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -50,4 +54,25 @@ public class WayController {
     public List<WayInfoResponse> getAllWays() {
         return wayService.getAllWays();
     }
+
+    // Подробное описание маршрута
+    // ---------------------------
+    @PostMapping("/{id}")
+    @Operation(summary = "Добавить описание части маршрута.")
+    public WayDescriptionInfoResponse addPartWay(@PathVariable Long id, @RequestBody WayDescriptionInfoRequest request) {
+        return wayService.addPartWay(id, request);
+    }
+
+    @PutMapping("/{id}/{partNumber}")
+    @Operation(summary = "Изменение данных части маршрута")
+    public WayDescriptionInfoResponse updatePartWay(@PathVariable Long id, @PathVariable Short partNumber, @RequestBody WayDescriptionInfoRequest request) {
+        return wayService.updatePartWay(id, partNumber, request);
+    }
+
+    @GetMapping("/{id}/partway")
+    @Operation(summary = "Подробное описание маршрута (вывод частей маршрута)")
+    public List<WayDescriptionInfoResponse> getPartsWay(@PathVariable Long id) {
+        return wayService.getPartsWay(id);
+    }
+
 }

@@ -1,0 +1,47 @@
+//   "description": "Метро 'Ладожская' - Рябовское шоссе",
+//  "wayNumber": "30",
+[
+{
+  "partNumber": 1,
+  "nameStreet": "Заневский проспект",
+  "partStart": "Заневский проспект дом 3",
+  "partEnd": "Заневский проспект дом 39",
+  "maneuver2nextPart": "Правый поворот на проспект Косыгина",
+  "partLength": 7
+}
+,
+{
+  "partNumber": 2,
+  "nameStreet": "проспект Косыгина",
+  "partStart": "проспект Косыгина дом 6",
+  "partEnd": "проспект Косыгина дом 32",
+  "maneuver2nextPart": "Левый поворот на улицу Коммунны",
+  "partLength": 4
+}
+,
+{
+  "partNumber": 3,
+  "nameStreet": "улица Коммунны",
+  "partStart": "улица Коммунны дом 8",
+  "partEnd": "улица Коммунны дом 62",
+  "maneuver2nextPart": "правый поворот на Рябовское шоссе",
+  "partLength": 12
+}
+,
+{
+  "partNumber": 4,
+  "nameStreet": "Рябовское шоссе",
+  "partStart": "Рябовское шоссе дом 82",
+  "partEnd": "Рябовское шоссе дом 4",
+  "maneuver2nextPart": "Конечная остановка",
+  "partLength": 8.2
+}
+,
+{
+  "partNumber": 0,
+  "partStart": "string",
+  "partEnd": "string",
+  "maneuver2nextPart": "string",
+  "partLength": 0
+}
+]

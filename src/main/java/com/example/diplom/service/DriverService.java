@@ -79,7 +79,7 @@ public class DriverService {
 
         if(driver != null) {
             if(driver.getStatus() != DriverStatus.FIRED) {
-                driver.setFirstName( request.getFirstName() == null ? driver.getFirstName() : request.getFirstName());
+                driver.setFirstName(request.getFirstName() == null ? driver.getFirstName() : request.getFirstName());
                 driver.setLastName(request.getLastName() == null ? driver.getLastName() : request.getLastName());
                 driver.setMiddleName(request.getMiddleName() == null ? driver.getMiddleName() : request.getMiddleName());
                 driver.setDriveLicense(request.getDriveLicense() == null ? driver.getDriveLicense() : request.getDriveLicense());
@@ -107,17 +107,17 @@ public class DriverService {
         if( driver != null ) {
             if(driver.getStatus() != DriverStatus.FIRED) {
                 driver.setDateFired(LocalDateTime.now());
-                driver.setDateModified(LocalDateTime.now());
                 driver.setStatus(DriverStatus.FIRED);
 
                 driverRepository.save(driver);
             } else {
                 // prepare for exception
+                // дважды уволить водителя нельзя
             }
         } else {
             // prepare for exception
+            // водителя такого нет
         }
-
     }
 
     public List<DriverInfoResponse> getAllDrivers() {

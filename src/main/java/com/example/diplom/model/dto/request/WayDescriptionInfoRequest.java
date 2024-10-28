@@ -4,8 +4,6 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
-import java.math.BigDecimal;
-
 @Setter
 @Getter
 @SuperBuilder
@@ -13,9 +11,11 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 
-public class WayInfoRequest {
-    String description;
-    String wayNumber;
-    Float wayLength;
-    BigDecimal cost;
+public class WayDescriptionInfoRequest {
+    Short partNumber;
+    String nameStreet;
+    String partStart;
+    String partEnd;
+    String maneuver2nextPart;
+    Float partLength;
 }
