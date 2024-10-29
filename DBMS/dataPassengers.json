@@ -1,0 +1,12 @@
+[
+{
+  "nic": "nic001",
+  "password": "nic001",
+  "email": "nic001@test.com"
+},
+{
+  "nic": "nic030",
+  "password": "nic030",
+  "email": "nic030@test.com"
+}
+]

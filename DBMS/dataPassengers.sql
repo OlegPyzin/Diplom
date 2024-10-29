@@ -1,0 +1,236 @@
+-- To fill database
+-- launch:
+-- psql -h macppc minibuses oleg -f dataPassengers.sql
+--
+insert into passengers.passengers
+(
+    nic
+    ,last_name
+    ,first_name
+    ,middle_name
+    ,password
+    ,email
+    ,telephone
+    ,date_added
+    ,status
+) values
+(
+    'anonymous'
+    ,'anonymous'
+    ,'anonymous'
+    ,''
+    ,'anonymous'
+    ,'anonymous@test.com'
+    ,'265696687'
+    ,'2024-01-01T12:00:00.000Z'
+    ,'ADDED'
+),
+(
+    'nic001'
+    ,''
+    ,''
+    ,''
+    ,'nic001'
+    ,'nic001@test.com'
+    ,''
+    ,'2024-01-01T14:00:00.000Z'
+    ,'ADDED'
+),
+(
+    'nic002'
+    ,''
+    ,''
+    ,''
+    ,'nic002'
+    ,'nic002@test.com'
+    ,''
+    ,'2024-01-02T12:00:00.000Z'
+    ,'ADDED'
+),
+(
+    'nic003'
+    ,''
+    ,''
+    ,''
+    ,'nic003'
+    ,'nic003@test.com'
+    ,''
+    ,'2024-01-03T12:00:00.000Z'
+    ,'ADDED'
+),
+(
+    'nic004'
+    ,''
+    ,''
+    ,''
+    ,'nic004'
+    ,'nic004@test.com'
+    ,''
+    ,'2024-01-04T12:00:00.000Z'
+    ,'ADDED'
+),
+(
+    'nic005'
+    ,''
+    ,''
+    ,''
+    ,'nic005'
+    ,'nic005@test.com'
+    ,''
+    ,'2024-01-05T12:00:00.000Z'
+    ,'ADDED'
+),
+(
+    'nic006'
+    ,''
+    ,''
+    ,''
+    ,'nic006'
+    ,'nic006@test.com'
+    ,''
+    ,'2024-01-06T12:00:00.000Z'
+    ,'ADDED'
+),
+(
+    'nic007'
+    ,''
+    ,''
+    ,''
+    ,'nic007'
+    ,'nic007@test.com'
+    ,''
+    ,'2024-01-07T12:00:00.000Z'
+    ,'ADDED'
+),
+(
+    'nic008'
+    ,''
+    ,''
+    ,''
+    ,'nic008'
+    ,'nic008@test.com'
+    ,''
+    ,'2024-01-08T12:00:00.000Z'
+    ,'ADDED'
+),
+(
+    'nic009'
+    ,''
+    ,''
+    ,''
+    ,'nic009'
+    ,'nic009@test.com'
+    ,''
+    ,'2024-01-09T12:00:00.000Z'
+    ,'ADDED'
+),
+(
+    'nic010'
+    ,''
+    ,''
+    ,''
+    ,'nic010'
+    ,'nic010@test.com'
+    ,''
+    ,'2024-01-10T12:00:00.000Z'
+    ,'ADDED'
+),
+(
+    'nic011'
+    ,''
+    ,''
+    ,''
+    ,'nic011'
+    ,'nic011@test.com'
+    ,''
+    ,'2024-01-11T12:00:00.000Z'
+    ,'ADDED'
+),
+(
+    'nic012'
+    ,''
+    ,''
+    ,''
+    ,'nic012'
+    ,'nic012@test.com'
+    ,''
+    ,'2024-01-12T12:00:00.000Z'
+    ,'ADDED'
+),
+(
+    'nic014'
+    ,''
+    ,''
+    ,''
+    ,'nic014'
+    ,'nic014@test.com'
+    ,''
+    ,'2024-01-14T12:00:00.000Z'
+    ,'ADDED'
+),
+(
+    'nic015'
+    ,''
+    ,''
+    ,''
+    ,'nic015'
+    ,'nic015@test.com'
+    ,''
+    ,'2024-01-15T12:00:00.000Z'
+    ,'ADDED'
+),
+(
+    'nic016'
+    ,''
+    ,''
+    ,''
+    ,'nic016'
+    ,'nic016@test.com'
+    ,''
+    ,'2024-01-16T12:00:00.000Z'
+    ,'ADDED'
+),
+(
+    'nic017'
+    ,''
+    ,''
+    ,''
+    ,'nic017'
+    ,'nic017@test.com'
+    ,''
+    ,'2024-01-17T12:00:00.000Z'
+    ,'ADDED'
+),
+(
+    'nic018'
+    ,''
+    ,''
+    ,''
+    ,'nic018'
+    ,'nic018@test.com'
+    ,''
+    ,'2024-01-18T12:00:00.000Z'
+    ,'ADDED'
+),
+(
+    'nic019'
+    ,''
+    ,''
+    ,''
+    ,'nic019'
+    ,'nic019@test.com'
+    ,''
+    ,'2024-01-19T12:00:00.000Z'
+    ,'ADDED'
+),
+(
+    'nic020'
+    ,''
+    ,''
+    ,''
+    ,'nic020'
+    ,'nic020@test.com'
+    ,''
+    ,'2024-01-20T12:00:00.000Z'
+    ,'ADDED'
+);

@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
 
 import static com.example.diplom.constants.Constants.PASSENGERS_API;
@@ -42,8 +41,8 @@ public class PassengerController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Удаление/самоудаление пассажира")
-    public void deletePassenger(@PathVariable Long id) {
-        passengerService.deletePassenger(id);
+    public void deletePassenger(@PathVariable Long id, @RequestBody PassengerInfoRequest request) {
+        passengerService.deletePassenger(id, request);
     }
 
     @GetMapping("/all")
