@@ -1,5 +1,6 @@
-//   "description": "Метро 'Ладожская' - Рябовское шоссе",
+//  "description": "Метро 'Ладожская' - Рябовское шоссе",
 //  "wayNumber": "30",
+//  "id": 1
 [
 {
   "partNumber": 1,
@@ -36,12 +37,29 @@
   "maneuver2nextPart": "Конечная остановка",
   "partLength": 8.2
 }
-,
-{
-  "partNumber": 0,
-  "partStart": "string",
-  "partEnd": "string",
-  "maneuver2nextPart": "string",
-  "partLength": 0
-}
 ]
+
+//  "description": "Канонерский остров - метро 'Нарвская'",
+//  "wayNumber": "35",
+//  "id": 2
+[
+
+]
+
+//  "description": "Троицкое поле - метро'Обухово'",
+//  "wayNumber": "48",
+//  "id": 3
+[
+
+]
+
+//  "description": "Площадь Александра Невского - Единый центр документов",
+//  "wayNumber": "55",
+//  "id": 4
+[
+
+]
+
+//  "description": "Проспект Культуры - метро 'Политехническая'",
+//  "wayNumber": "69",
+//  "id": 5

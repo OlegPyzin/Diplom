@@ -66,11 +66,6 @@ public class DescriptionWay {
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     LocalDateTime dateModified;
 
-    @Column(name = "date_deleted")
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    LocalDateTime dateDeleted;
-
     @Column(name = "status", length = 20)
     @Enumerated(EnumType.STRING)
     WayStatus status;

@@ -15,7 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -125,18 +124,27 @@ public class WayService {
     // ---------------------------
     public WayDescriptionInfoResponse addPartWay(Long id, WayDescriptionInfoRequest request) {
         Way way = getWayFromDB(id);
+        Short partNumber;
 
         if( way != null ) {
-            DescriptionWay saved;
-            DescriptionWay descriptionWay = mapper.convertValue(request,DescriptionWay.class);
-            descriptionWay.setWay(way);
-            descriptionWay.setDateAdded(LocalDateTime.now());
-            descriptionWay.setStatus(WayStatus.ADDED);
+            partNumber = request.getPartNumber();
+            Optional<DescriptionWay> somePartWay = wayDescriptionRepository.findByWayIdPartNumber(id, partNumber);
+            if( somePartWay.isPresent() ) {
+                // Prepare for exception
+                // Такая часть маршрута уже есть
+            } else {
+                DescriptionWay saved;
+                DescriptionWay descriptionWay = mapper.convertValue(request,DescriptionWay.class);
+                descriptionWay.setWay(way);
+                descriptionWay.setDateAdded(LocalDateTime.now());
+                descriptionWay.setStatus(WayStatus.ADDED);
 
-            saved = wayDescriptionRepository.save(descriptionWay);
-            return mapper.convertValue(saved, WayDescriptionInfoResponse.class);
+                saved = wayDescriptionRepository.save(descriptionWay);
+                return mapper.convertValue(saved, WayDescriptionInfoResponse.class);
+            }
         } else {
             // prepare for exception
+            // Нельзя добавить часть маршрута для несуществующего маршрута
         }
         return null;
     }
@@ -156,6 +164,39 @@ public class WayService {
     }
 
     public WayDescriptionInfoResponse updatePartWay(Long id, Short partNumber, WayDescriptionInfoRequest request) {
-        return new WayDescriptionInfoResponse();
+        DescriptionWay partWay;
+        DescriptionWay saved;
+        Optional<DescriptionWay> somePartWay = wayDescriptionRepository.findByWayIdPartNumber(id, partNumber);
+        if( somePartWay.isPresent() ) {
+            partWay = somePartWay.get();
+        } else {
+            partWay = null;
+        }
+
+        if( partWay != null ) {
+            // !!! Attention: partNumber impossible to change with this method
+            partWay.setNameStreet(request.getNameStreet() == null ? partWay.getNameStreet() : request.getNameStreet());
+            partWay.setPartStart(request.getPartStart() == null ? partWay.getPartStart() : request.getPartStart());
+            partWay.setPartEnd(request.getPartEnd() == null ? partWay.getPartEnd() : request.getPartEnd());
+            partWay.setManeuver2nextPart(request.getManeuver2nextPart() == null ? partWay.getManeuver2nextPart() : request.getManeuver2nextPart());
+            partWay.setPartLength(request.getPartLength() == null ? partWay.getPartLength() : request.getPartLength());
+            partWay.setDateModified(LocalDateTime.now());
+            partWay.setStatus(WayStatus.UPDATED);
+
+            saved = wayDescriptionRepository.save(partWay);
+
+        } else {
+            // prepare for exception
+            saved = new DescriptionWay();
+        }
+
+        return mapper.convertValue(saved, WayDescriptionInfoResponse.class);
+    }
+
+    public void deletePartWay(Long id, Short partNumber) {
+        Optional<DescriptionWay> somePartWay = wayDescriptionRepository.findByWayIdPartNumber(id, partNumber);
+        if( somePartWay.isPresent() ) {
+            wayDescriptionRepository.delete(somePartWay.get());
+        }
     }
 }
