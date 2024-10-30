@@ -4,7 +4,9 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
-import java.math.BigDecimal;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.util.Date;
 
 @Setter
 @Getter
@@ -13,11 +15,11 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 
-public class PaymentRequest {
-    Long passengerId;
+public class WorkOnWayInfoRequest {
+    Long wayId;
     Long driverId;
     Long busId;
-    Long wayId;
-    BigDecimal amount;
-    String amountInfo;
+    Time timeStart;
+    Time timeEnd;
+    LocalDate dateWorkDay;
 }

@@ -1,5 +1,6 @@
 package com.example.diplom.service;
 
+import com.example.diplom.model.db.entity.Bus;
 import com.example.diplom.model.db.entity.Driver;
 import com.example.diplom.model.db.entity.Medical;
 import com.example.diplom.model.db.repository.DriverRepository;
@@ -8,6 +9,7 @@ import com.example.diplom.model.dto.request.DriverInfoRequest;
 import com.example.diplom.model.dto.request.MedicalInfoRequest;
 import com.example.diplom.model.dto.response.DriverInfoResponse;
 import com.example.diplom.model.dto.response.MedicalInfoResponse;
+import com.example.diplom.model.enums.BusStatus;
 import com.example.diplom.model.enums.DriverStatus;
 import com.example.diplom.model.enums.MedicalStatus;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -44,7 +46,7 @@ public class DriverService {
         return mapper.convertValue(saved, DriverInfoResponse.class);
     }
 
-    private Driver getDriverFromDB(Long id) {
+    public Driver getDriverFromDB(Long id) {
         Driver driver;
         Optional<Driver> someDriver = driverRepository.findById(id);
         if( someDriver.isPresent() ) {
@@ -54,6 +56,17 @@ public class DriverService {
         }
         return driver;
     }
+
+    public boolean checkDriver(Long id) {
+        Driver driver = getDriverFromDB(id);
+        if( driver != null ) {
+            if( driver.getStatus() != DriverStatus.FIRED ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public DriverInfoResponse getDriver(Long id) {
         Driver driver = getDriverFromDB(id);

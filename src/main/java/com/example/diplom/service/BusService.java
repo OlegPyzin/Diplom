@@ -41,7 +41,7 @@ public class BusService {
         return mapper.convertValue(saved, BusInfoResponse.class);
     }
 
-    private Bus getBusFromDB(Long id) {
+    public Bus getBusFromDB(Long id) {
         Bus bus;
         Optional<Bus> someBus = busRepository.findById(id);
         if( someBus.isPresent() ) {

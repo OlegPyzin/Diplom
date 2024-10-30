@@ -83,5 +83,6 @@ public class Bus {
     List<TechControl> techControl;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "bus")
+    @JsonBackReference(value = "driver_workonway_bus")
     List<WorkOnWay> workOnWay;
 }

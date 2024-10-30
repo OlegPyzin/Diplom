@@ -72,5 +72,6 @@ public class Way {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "way")
     //@JsonBackReference(value = "driver_ways")
+    @JsonBackReference(value = "driver_workonway_way")
     List<WorkOnWay> workOnWay;
 }

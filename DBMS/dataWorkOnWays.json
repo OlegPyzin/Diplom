@@ -1,0 +1,55 @@
+[
+{
+  "wayId": 1,
+  "driverId": 1,
+  "busId": 1,
+  "timeStart": "09:00:00",
+  "timeEnd": "23:00:00",
+  "dateWorkDay": "2024-10-29"
+}
+,
+{
+  "wayId": 2,
+  "driverId": 10,
+  "busId": 4,
+  "timeStart": "07:30:00",
+  "timeEnd": "23:00:00",
+  "dateWorkDay": "2024-10-29"
+}
+,
+{
+  "wayId": 2,
+  "driverId": 2,
+  "busId": 3,
+  "timeStart": "07:30:00",
+  "timeEnd": "23:00:00",
+  "dateWorkDay": "2024-10-29"
+}
+,
+{
+  "wayId": 4,
+  "driverId": 9,
+  "busId": 2,
+  "timeStart": "07:30:00",
+  "timeEnd": "23:00:00",
+  "dateWorkDay": "2024-10-29"
+}
+,
+{
+  "wayId": 4,
+  "driverId": 6,
+  "busId": 5,
+  "timeStart": "07:30:00",
+  "timeEnd": "23:00:00",
+  "dateWorkDay": "2024-10-29"
+}
+,
+{
+  "wayId": 5,
+  "driverId": 3,
+  "busId": 6,
+  "timeStart": "07:30:00",
+  "timeEnd": "23:00:00",
+  "dateWorkDay": "2024-10-29"
+}
+]

@@ -41,7 +41,7 @@ public class WayService {
         return mapper.convertValue(saved, WayInfoResponse.class);
     }
 
-    private Way getWayFromDB(Long id) {
+    public Way getWayFromDB(Long id) {
         Way way;
         Optional<Way> someWay = wayRepository.findById(id);
         if( someWay.isPresent() ) {
