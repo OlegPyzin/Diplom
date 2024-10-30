@@ -1,6 +1,7 @@
 package com.example.diplom.controllers;
 
 import com.example.diplom.model.dto.request.PassengerInfoRequest;
+import com.example.diplom.model.dto.request.PaymentInfoRequest;
 import com.example.diplom.model.dto.response.PassengerInfoResponse;
 import com.example.diplom.service.PassengerService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -44,6 +45,13 @@ public class PassengerController {
     public void deletePassenger(@PathVariable Long id, @RequestBody PassengerInfoRequest request) {
         passengerService.deletePassenger(id, request);
     }
+
+    @PostMapping("/{id}")
+    @Operation(summary = "Данные для оплаты проезда пассажира")
+    public void donePayment(@PathVariable Long id,@RequestBody PaymentInfoRequest request) {
+        passengerService.donePayment(id, request);
+    }
+
 
     @GetMapping("/all")
     @Operation(summary = "Список всех зарегистрированных пассажиров")

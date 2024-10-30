@@ -52,6 +52,16 @@ public class WayService {
         return way;
     }
 
+    public boolean checkWay(Long id) {
+        Way way = getWayFromDB(id);
+        if( way != null ) {
+            if( way.getStatus() != WayStatus.DELETED ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public WayInfoResponse getWay(Long id) {
         Way way = getWayFromDB(id);
 

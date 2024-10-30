@@ -2,6 +2,7 @@ package com.example.diplom.service;
 
 import com.example.diplom.model.db.entity.Bus;
 import com.example.diplom.model.db.entity.TechControl;
+import com.example.diplom.model.db.entity.Way;
 import com.example.diplom.model.db.repository.BusRepository;
 import com.example.diplom.model.db.repository.TechControlRepository;
 import com.example.diplom.model.dto.request.BusInfoRequest;
@@ -9,6 +10,7 @@ import com.example.diplom.model.dto.request.TechInfoRequest;
 import com.example.diplom.model.dto.response.BusInfoResponse;
 import com.example.diplom.model.dto.response.TechInfoResponse;
 import com.example.diplom.model.enums.BusStatus;
+import com.example.diplom.model.enums.WayStatus;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -49,6 +51,16 @@ public class BusService {
         }
 
         return bus;
+    }
+
+    public boolean checkBus(Long id) {
+        Bus bus = getBusFromDB(id);
+        if( bus != null ) {
+            if( bus.getStatus() != BusStatus.SOLD ) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public BusInfoResponse getBus(Long id) {

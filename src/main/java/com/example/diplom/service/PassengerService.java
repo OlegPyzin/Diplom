@@ -1,8 +1,11 @@
 package com.example.diplom.service;
 
 import com.example.diplom.model.db.entity.Passenger;
+import com.example.diplom.model.db.entity.Payment;
 import com.example.diplom.model.db.repository.PassengerRepository;
+import com.example.diplom.model.db.repository.PaymentRepository;
 import com.example.diplom.model.dto.request.PassengerInfoRequest;
+import com.example.diplom.model.dto.request.PaymentInfoRequest;
 import com.example.diplom.model.dto.response.PassengerInfoResponse;
 import com.example.diplom.model.enums.PassengerStatus;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,7 +24,13 @@ import java.util.stream.Collectors;
 
 public class PassengerService {
 
+    // заинжектим сервисы для проверки данных
+    // о маршруте и микроавтобусе при оплате проезда
+    private final BusService busService;
+    private final WayService wayService;
+
     private final PassengerRepository passengerRepository;
+    private final PaymentRepository paymentRepository;
     private final ObjectMapper mapper;
 
     public PassengerInfoResponse addPassenger(PassengerInfoRequest request) {
@@ -150,5 +159,34 @@ public class PassengerService {
         return passengerRepository.findAll().stream()
                 .map(passenger -> mapper.convertValue(passenger, PassengerInfoResponse.class))
                 .collect(Collectors.toList());
+    }
+
+    public void donePayment(Long id, PaymentInfoRequest request) {
+        Passenger passenger = getPassengerFromDB(id);
+        if (passenger != null) {
+            if (passenger.getStatus() != PassengerStatus.DELETED) {
+                if( wayService.checkWay(request.getWayId()) ) {
+                    if( busService.checkBus(request.getBusId())) {
+                        Payment payment = mapper.convertValue(request, Payment.class);
+                        payment.setPassengerId(id);
+                        payment.setDatePayment(LocalDateTime.now());
+                        paymentRepository.save(payment);
+                    } else {
+                        // prepare for exception
+                        // нельзя оплатить проезд на проданном автобусе
+                    }
+                } else {
+                    // prepare for exception
+                    // нельзя оплатить по несуществующему маршруту
+                }
+            } else {
+                // prepare for exception
+                // используйте anonymous для оплаты проезда
+            }
+        } else {
+            // prepare for exception
+            // зарегистрируйтесь для индивидуализации оплаты проезда
+            // или используйте anonymous для оплаты текущего проезда
+        }
     }
 }

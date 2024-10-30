@@ -1,5 +1,6 @@
 package com.example.diplom.model.db.entity;
 
+import com.example.diplom.model.enums.PaymentMethod;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -30,10 +31,6 @@ public class Payment {
     Long passengerId;
 
     @NotNull
-    @Column(name = "driver_id")
-    Long driverId;
-
-    @NotNull
     @Column(name = "bus_id")
     Long busId;
 
@@ -53,4 +50,8 @@ public class Payment {
     @NotNull
     @Column(name = "amount_info")
     String amountInfo;
+
+    @Column(name = "payment_method", length = 30)
+    @Enumerated(EnumType.STRING)
+    PaymentMethod paymentMethod;
 }
