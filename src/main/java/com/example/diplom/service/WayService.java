@@ -1,5 +1,6 @@
 package com.example.diplom.service;
 
+import com.example.diplom.exceptions.CustomException;
 import com.example.diplom.model.db.entity.DescriptionWay;
 import com.example.diplom.model.db.entity.Way;
 import com.example.diplom.model.db.repository.WayDescriptionRepository;
@@ -12,6 +13,7 @@ import com.example.diplom.model.enums.WayStatus;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -72,7 +74,8 @@ public class WayService {
                     .collect(Collectors.toList());
         } else {
             // prepare for exception
-            way = new Way();
+            throw new CustomException(String.format("Маршрута с id [%d] нет.", id), HttpStatus.BAD_REQUEST);
+            //way = new Way();
         }
         WayInfoResponse answer = mapper.convertValue(way, WayInfoResponse.class);
         answer.setWayDescriptionInfoResponseList(answerPartsWay);
@@ -95,10 +98,12 @@ public class WayService {
             } else {
                 // prepare for exception
                 // изменить данные удаленного маршрута нельзя
+                throw new CustomException(String.format("Изменить данные удаленного маршрута нельзя."), HttpStatus.BAD_REQUEST);
             }
         } else {
             // prepare for exception
-            way = new Way();
+            throw new CustomException(String.format("Маршрута с id [%d] нет.", id), HttpStatus.BAD_REQUEST);
+            //way = new Way();
         }
 
         return mapper.convertValue(saved, WayInfoResponse.class);
@@ -115,10 +120,12 @@ public class WayService {
             } else {
                 // prepare for exception
                 // изменить данные удаленного маршрута нельзя
+                throw new CustomException(String.format("Удалить удаленный маршрут нельзя."), HttpStatus.BAD_REQUEST);
             }
         } else {
             // prepare for exception
             // маршрута то и нет
+            throw new CustomException(String.format("Маршрута с id [%d] нет.", id), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -142,6 +149,7 @@ public class WayService {
             if( somePartWay.isPresent() ) {
                 // Prepare for exception
                 // Такая часть маршрута уже есть
+                throw new CustomException(String.format("Часть маршрута [%d] уже внесена.", partNumber), HttpStatus.BAD_REQUEST);
             } else {
                 DescriptionWay saved;
                 DescriptionWay descriptionWay = mapper.convertValue(request,DescriptionWay.class);
@@ -155,8 +163,10 @@ public class WayService {
         } else {
             // prepare for exception
             // Нельзя добавить часть маршрута для несуществующего маршрута
+            throw new CustomException(String.format("Нельзя добавить часть маршрута для несуществующего маршрута."), HttpStatus.BAD_REQUEST);
         }
-        return null;
+        // After added exception return statement doesn't needed
+        //return null;
     }
 
     public List<WayDescriptionInfoResponse> getPartsWay(Long id) {
@@ -169,6 +179,7 @@ public class WayService {
                     .collect(Collectors.toList());
         } else {
             // prepare for exception
+            throw new CustomException(String.format("Маршрута с id [%d] нет.", id), HttpStatus.BAD_REQUEST);
         }
         return answer;
     }
@@ -197,7 +208,8 @@ public class WayService {
 
         } else {
             // prepare for exception
-            saved = new DescriptionWay();
+            throw new CustomException(String.format("[%d] такая часть маршрута не описана.", partNumber), HttpStatus.BAD_REQUEST);
+            //saved = new DescriptionWay();
         }
 
         return mapper.convertValue(saved, WayDescriptionInfoResponse.class);

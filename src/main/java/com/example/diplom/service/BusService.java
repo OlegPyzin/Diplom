@@ -1,8 +1,8 @@
 package com.example.diplom.service;
 
+import com.example.diplom.exceptions.CustomException;
 import com.example.diplom.model.db.entity.Bus;
 import com.example.diplom.model.db.entity.TechControl;
-import com.example.diplom.model.db.entity.Way;
 import com.example.diplom.model.db.repository.BusRepository;
 import com.example.diplom.model.db.repository.TechControlRepository;
 import com.example.diplom.model.dto.request.BusInfoRequest;
@@ -10,10 +10,10 @@ import com.example.diplom.model.dto.request.TechInfoRequest;
 import com.example.diplom.model.dto.response.BusInfoResponse;
 import com.example.diplom.model.dto.response.TechInfoResponse;
 import com.example.diplom.model.enums.BusStatus;
-import com.example.diplom.model.enums.WayStatus;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -73,7 +73,8 @@ public class BusService {
                     .collect(Collectors.toList());
         } else {
             // prepare for exception
-            bus = new Bus();
+            throw new CustomException(String.format("Микроавтобуса с id - %d нет или уже продан.", id), HttpStatus.BAD_REQUEST);
+            // bus = new Bus();
         }
 
         BusInfoResponse answer = mapper.convertValue(bus, BusInfoResponse.class);
@@ -83,7 +84,7 @@ public class BusService {
 
     public BusInfoResponse updateBus(Long id, BusInfoRequest request) {
         Bus bus = getBusFromDB(id);
-        Bus saved = new Bus();
+        Bus saved;
 
         if( bus != null ) {
             if(bus.getStatus() != BusStatus.SOLD) {
@@ -98,9 +99,11 @@ public class BusService {
                 saved = busRepository.save(bus);
             } else {
                 // prepare for exception
+                throw new CustomException(String.format("Изменить данные на проданный микроавтобус нельзя."), HttpStatus.BAD_REQUEST);
             }
         } else {
             // prepare for exception
+            throw new CustomException(String.format("Микроавтобуса с id - %d нет.", id), HttpStatus.BAD_REQUEST);
         }
         return mapper.convertValue(saved, BusInfoResponse.class);
     }
@@ -117,9 +120,11 @@ public class BusService {
                 busRepository.save(bus);
             } else {
                 // prepare for exception
+                throw new CustomException(String.format("Микроавтобус с id - %d уже продан.", id), HttpStatus.BAD_REQUEST);
             }
         } else {
             // prepare for exception
+            throw new CustomException(String.format("Микроавтобуса с id - %d нет.", id), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -146,8 +151,9 @@ public class BusService {
         }
         else {
             // prepare for exception
+            throw new CustomException(String.format("Прохождение техосмотра. Микроавтобуса с id - %d нет. ", id), HttpStatus.BAD_REQUEST);
         }
-        return null;
+        //return null;
     }
 
     public List<TechInfoResponse> getTechControlBus(Long id) {
@@ -160,6 +166,7 @@ public class BusService {
                     .collect(Collectors.toList());
         } else {
             // prepare for exception
+            throw new CustomException(String.format("Техосмотры. Микроавтобуса с id - %d нет. ", id), HttpStatus.BAD_REQUEST);
         }
 
         return answer;

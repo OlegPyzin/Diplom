@@ -1,5 +1,6 @@
 package com.example.diplom.service;
 
+import com.example.diplom.exceptions.CustomException;
 import com.example.diplom.model.db.entity.Bus;
 import com.example.diplom.model.db.entity.Driver;
 import com.example.diplom.model.db.entity.Way;
@@ -12,6 +13,7 @@ import com.example.diplom.model.dto.response.WorkOnWayInfoResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -60,14 +62,17 @@ public class AdminService {
                 } else {
                     // prepare exception
                     // нет такого водителя или он уволен
+                    throw new CustomException(String.format("Водителя с id - %d нет или он уволен.", request.getDriverId()), HttpStatus.BAD_REQUEST);
                 }
             } else {
                 // prepare exception
                 // нет такого маршрута
+                throw new CustomException(String.format("Маршрута с id - %d нет.", request.getWayId()), HttpStatus.BAD_REQUEST);
             }
         } else {
             // prepare exception
             // нет такого микроавтобуса
+            throw new CustomException(String.format("Микроавтобуса с id - %d нет или уже продан.", request.getBusId()), HttpStatus.BAD_REQUEST);
         }
         WorkOnWayInfoResponse answer;
         // all below needed while will added exception
@@ -100,8 +105,9 @@ public class AdminService {
         WorkOnWayInfoResponse answer;
         if( workOnWay == null ) {
             // prepare for exception
-            workOnWay = new WorkOnWay();
-            answer = mapper.convertValue(workOnWay, WorkOnWayInfoResponse.class);
+            throw new CustomException(String.format("Рабочий маршрут с id - %d не составлен.", id), HttpStatus.BAD_REQUEST);
+            // workOnWay = new WorkOnWay();
+            // answer = mapper.convertValue(workOnWay, WorkOnWayInfoResponse.class);
         } else {
             answer = mapper.convertValue(workOnWay, WorkOnWayInfoResponse.class);
             answer.setDriverId(workOnWay.getDriver().getId());

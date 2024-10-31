@@ -1,5 +1,6 @@
 package com.example.diplom.service;
 
+import com.example.diplom.exceptions.CustomException;
 import com.example.diplom.model.db.entity.Passenger;
 import com.example.diplom.model.db.entity.Payment;
 import com.example.diplom.model.db.repository.PassengerRepository;
@@ -11,6 +12,7 @@ import com.example.diplom.model.enums.PassengerStatus;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -40,14 +42,16 @@ public class PassengerService {
         if( uniqueValue.isPresent() ) {
             // prepare for exception
             // nic must be unique, while return new Passenger
-            saved = new Passenger();
+            throw new CustomException(String.format("Такой NIC [%s] уже используется, повторите регистрацию с другим NIC.", request.getNic()), HttpStatus.BAD_REQUEST);
+            //saved = new Passenger();
         } else {
             // Проверка на уникальность email
             uniqueValue = passengerRepository.findByEmail(request.getEmail());
             if( uniqueValue.isPresent() ) {
                 // prepare for exception
                 // email must be unique, while return new Passenger
-                saved = new Passenger();
+                throw new CustomException(String.format("Такой email [%s] уже используется, повторите регистрацию с другим email.", request.getEmail()), HttpStatus.BAD_REQUEST);
+                //saved = new Passenger();
             } else {
                 Passenger passenger = mapper.convertValue(request, Passenger.class);
                 passenger.setDateAdded(LocalDateTime.now());
@@ -73,8 +77,9 @@ public class PassengerService {
         Passenger passenger = getPassengerFromDB(id);
 
         if( passenger == null ) {
+            throw new CustomException(String.format("Пассажир с id [%d] не зарегистрирован.", id), HttpStatus.BAD_REQUEST);
             // prepare for exception
-            passenger = new Passenger();
+            //passenger = new Passenger();
         }
 
         return mapper.convertValue(passenger, PassengerInfoResponse.class);
@@ -91,14 +96,16 @@ public class PassengerService {
                     if( uniqueValue.isPresent() ) {
                         // prepare for exception
                         // nic must be unique, while return new Passenger
-                        saved = new Passenger();
+                        throw new CustomException(String.format("Такой NIC [%s] уже используется, повторите регистрацию с другим NIC.", request.getNic()), HttpStatus.BAD_REQUEST);
+                        //saved = new Passenger();
                     } else {
                         // Проверка на уникальность email
                         uniqueValue = passengerRepository.findByEmail(request.getEmail());
                         if( uniqueValue.isPresent() ) {
                             // prepare for exception
                             // email must be unique, while return new Passenger
-                            saved = new Passenger();
+                            throw new CustomException(String.format("Такой email [%s] уже используется, повторите регистрацию с другим email.", request.getEmail()), HttpStatus.BAD_REQUEST);
+                            //saved = new Passenger();
                         } else {
                             passenger.setNic(request.getNic() == null ? passenger.getNic() : request.getNic());
                             passenger.setLastName(request.getLastName() == null ? passenger.getLastName() : request.getLastName());
@@ -114,17 +121,21 @@ public class PassengerService {
                 } else {
                     // prepare for exception
                     // password in database not equals
+                    throw new CustomException(String.format("Неверный пароль."), HttpStatus.UNAUTHORIZED);
                 }
             } else {
                 // prepare for exception
                 // passenger doesn't exist
+                throw new CustomException(String.format("Пассажир с id [%d] не зарегистрирован.", id), HttpStatus.BAD_REQUEST);
             }
         } else {
             // prepare for exception
             // id = 1 always own anonymous passenger
             // and never will change
+            throw new CustomException(String.format("Данные Anonymous пассажира неизменяемы."), HttpStatus.UNAUTHORIZED);
         }
-        return new PassengerInfoResponse();
+        // After added exception return statement doesn't needed
+        //return new PassengerInfoResponse();
     }
 
     public void deletePassenger(Long id, PassengerInfoRequest request) {
@@ -139,19 +150,23 @@ public class PassengerService {
                     } else {
                         // prepare for exception
                         // password in database not equals
+                        throw new CustomException(String.format("Неверный пароль."), HttpStatus.UNAUTHORIZED);
                     }
                 } else {
                     // prepare for exception
                     // can not delete deleted passenger
+                    throw new CustomException(String.format("Невозможно изменить удаленного пассажира."), HttpStatus.BAD_REQUEST);
                 }
             } else {
                 // prepare for exception
                 // passenger doesn't exist
+                throw new CustomException(String.format("Пассажир с id [%d] не зарегистрирован.", id), HttpStatus.BAD_REQUEST);
             }
         } else {
             // prepare for exception
             // id = 1 always own anonymous passenger
             // and never may be deleted
+            throw new CustomException(String.format("Данные Anonymous пассажира неизменяемы."), HttpStatus.UNAUTHORIZED);
         }
     }
 
@@ -174,19 +189,23 @@ public class PassengerService {
                     } else {
                         // prepare for exception
                         // нельзя оплатить проезд на проданном автобусе
+                        throw new CustomException(String.format("Нельзя оплатить проезд на проданном автобусе."), HttpStatus.BAD_REQUEST);
                     }
                 } else {
                     // prepare for exception
                     // нельзя оплатить по несуществующему маршруту
+                    throw new CustomException(String.format("Нельзя оплатить проезд по несуществующему маршруту."), HttpStatus.BAD_REQUEST);
                 }
             } else {
                 // prepare for exception
                 // используйте anonymous для оплаты проезда
+                throw new CustomException(String.format("Используйте anonymous для оплаты проезда."), HttpStatus.BAD_REQUEST);
             }
         } else {
             // prepare for exception
             // зарегистрируйтесь для индивидуализации оплаты проезда
             // или используйте anonymous для оплаты текущего проезда
+            throw new CustomException(String.format("Зарегистрируйтесь для индивидуализации оплаты проезда,\nили используйте anonymous для оплаты проезда."), HttpStatus.BAD_REQUEST);
         }
     }
 }

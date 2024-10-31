@@ -1,6 +1,6 @@
 package com.example.diplom.service;
 
-import com.example.diplom.model.db.entity.Bus;
+import com.example.diplom.exceptions.CustomException;
 import com.example.diplom.model.db.entity.Driver;
 import com.example.diplom.model.db.entity.Medical;
 import com.example.diplom.model.db.repository.DriverRepository;
@@ -9,12 +9,12 @@ import com.example.diplom.model.dto.request.DriverInfoRequest;
 import com.example.diplom.model.dto.request.MedicalInfoRequest;
 import com.example.diplom.model.dto.response.DriverInfoResponse;
 import com.example.diplom.model.dto.response.MedicalInfoResponse;
-import com.example.diplom.model.enums.BusStatus;
 import com.example.diplom.model.enums.DriverStatus;
 import com.example.diplom.model.enums.MedicalStatus;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -79,7 +79,8 @@ public class DriverService {
                     .collect(Collectors.toList());
         } else {
             // prepare for exception
-            driver = new Driver();
+            throw new CustomException(String.format("Водителя с id - %d нет или он уволен.", id), HttpStatus.BAD_REQUEST);
+            //driver = new Driver();
         }
         DriverInfoResponse answer = mapper.convertValue(driver, DriverInfoResponse.class);
         answer.setMedicalInfoResponseList(answerMedical);
@@ -106,10 +107,12 @@ public class DriverService {
             } else {
                 // prepare for exception
                 // изменить данные уволенного водителя нельзя
+                throw new CustomException(String.format("Изменить данные на уволенного водителя нельзя."), HttpStatus.BAD_REQUEST);
             }
         } else {
             // prepare for exception
             // изменить данные водителя не в штате нельзя
+            throw new CustomException(String.format("Водителя с id - %d нет.", id), HttpStatus.BAD_REQUEST);
         }
         return mapper.convertValue(saved, DriverInfoResponse.class);
     }
@@ -126,10 +129,12 @@ public class DriverService {
             } else {
                 // prepare for exception
                 // дважды уволить водителя нельзя
+                throw new CustomException(String.format("Водитель уже уволен."), HttpStatus.BAD_REQUEST);
             }
         } else {
             // prepare for exception
             // водителя такого нет
+            throw new CustomException(String.format("Водителя с id - %d не в штате.", id), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -158,8 +163,10 @@ public class DriverService {
             return mapper.convertValue(saved, MedicalInfoResponse.class);
         } else {
             // prepare for exception
+            throw new CustomException(String.format("Медосмотр. Водителя с id - %d нет.", id), HttpStatus.BAD_REQUEST);
         }
-        return null;
+        // After added exception return statement doesn't needed
+        //return null;
     }
 
     public List<MedicalInfoResponse> getMedical(Long id) {
@@ -173,6 +180,7 @@ public class DriverService {
                     .collect(Collectors.toList());
         } else {
             // prepare for exception
+            throw new CustomException(String.format("Медосмотры. Водителя с id - %d нет.", id), HttpStatus.BAD_REQUEST);
         }
         return answer;
     }
