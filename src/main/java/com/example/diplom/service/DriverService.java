@@ -134,7 +134,7 @@ public class DriverService {
         } else {
             // prepare for exception
             // водителя такого нет
-            throw new CustomException(String.format("Водителя с id - %d не в штате.", id), HttpStatus.BAD_REQUEST);
+            throw new CustomException(String.format("Водитель с id - %d не в штате.", id), HttpStatus.BAD_REQUEST);
         }
     }
 
