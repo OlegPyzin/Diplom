@@ -69,7 +69,8 @@ public class BusServiceTest {
     @Test
     public void checkBus_ifBusNotExist() {
         when(busRepository.findById(1L)).thenReturn(Optional.ofNullable(null));
-        busService.checkBus(1L);
+        Boolean value = busService.checkBus(1L);
+        assertEquals( value, false);
     }
 
 
@@ -224,7 +225,6 @@ public class BusServiceTest {
 
     @Test
     public void deleteBus() {
-        BusInfoRequest request = new BusInfoRequest();
         Bus bus = new Bus();
         bus.setId(1L);
         bus.setStatus(BusStatus.UPDATED);
@@ -266,7 +266,7 @@ public class BusServiceTest {
 
     @Test
     public void getAllBuses() {
-        List<Bus> buses = List.of( new Bus(), new Bus());
+        List<Bus> buses = List.of(new Bus(), new Bus());
 
         when(busRepository.findAll()).thenReturn(buses);
         busService.getAllBuses();
