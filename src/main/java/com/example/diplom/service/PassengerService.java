@@ -155,7 +155,7 @@ public class PassengerService {
                 } else {
                     // prepare for exception
                     // can not delete deleted passenger
-                    throw new CustomException(String.format("Невозможно изменить удаленного пассажира."), HttpStatus.BAD_REQUEST);
+                    throw new CustomException(String.format("Невозможно удалить удаленного пассажира."), HttpStatus.BAD_REQUEST);
                 }
             } else {
                 // prepare for exception

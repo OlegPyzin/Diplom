@@ -32,7 +32,7 @@ import static org.mockito.ArgumentMatchers.any;
 public class BusServiceTest {
 
     @InjectMocks
-    public BusService busService;
+    private BusService busService;
 
     @Mock
     private BusRepository busRepository;
@@ -104,7 +104,6 @@ public class BusServiceTest {
 
         when(busRepository.findById(bus.getId())).thenReturn(Optional.ofNullable(null));
         busService.getBus(bus.getId());
-
     }
 
     @Test

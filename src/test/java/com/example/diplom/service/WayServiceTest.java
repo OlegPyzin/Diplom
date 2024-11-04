@@ -31,7 +31,7 @@ import static org.mockito.Mockito.*;
 public class WayServiceTest {
 
     @InjectMocks
-    public WayService wayService;
+    private WayService wayService;
 
     @Mock
     private WayRepository wayRepository;
