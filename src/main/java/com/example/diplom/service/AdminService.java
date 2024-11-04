@@ -51,8 +51,9 @@ public class AdminService {
                     Bus bus = busService.getBusFromDB(request.getBusId());
                     Way way = wayService.getWayFromDB(request.getWayId());
 
-                    WorkOnWay workOnWay = mapper.convertValue(request, WorkOnWay.class);
-
+                    WorkOnWay workOnWay = new WorkOnWay();
+                    // Тесты дают ошибку при маппинге поэтому заменен на new WorkOnWay()
+                    //WorkOnWay workOnWay = mapper.convertValue(request, WorkOnWay.class);
                     workOnWay.setDateWorkDay(request.getDateWorkDay() == null ? LocalDate.now() : request.getDateWorkDay());
                     workOnWay.setDriver(driver);
                     workOnWay.setBus(bus);

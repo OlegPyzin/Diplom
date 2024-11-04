@@ -1,7 +1,6 @@
 package com.example.diplom.service;
 
 import com.example.diplom.exceptions.CustomException;
-import com.example.diplom.model.db.entity.Bus;
 import com.example.diplom.model.db.entity.Passenger;
 import com.example.diplom.model.db.entity.Payment;
 import com.example.diplom.model.db.repository.PassengerRepository;
@@ -9,7 +8,6 @@ import com.example.diplom.model.db.repository.PaymentRepository;
 import com.example.diplom.model.dto.request.PassengerInfoRequest;
 import com.example.diplom.model.dto.request.PaymentInfoRequest;
 import com.example.diplom.model.dto.response.PassengerInfoResponse;
-import com.example.diplom.model.dto.response.PaymentInfoResponse;
 import com.example.diplom.model.enums.PassengerStatus;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
