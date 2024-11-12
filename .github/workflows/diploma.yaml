@@ -1,8 +1,6 @@
 name: Diploma CI with Maven
 
-on:
-  push:
-    branches: [ $default-branch ]
+on: [push]
 #  pull_request:
 #    branches: [ $default-branch ]
 
