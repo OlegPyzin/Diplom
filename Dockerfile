@@ -1,3 +1,6 @@
+# To bulid image
+# docker build . -t diploma
+#-----------------------------------------------
 # To launch job can use the line below
 # docker run --name=diploma -p 8080:8080 diploma
 #-----------------------------------------------
